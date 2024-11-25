@@ -8,3 +8,15 @@ body{
     width: 100vw;
     overflow-x: hidden;
 }
+.studentsList{
+    background-color: lime;
+    position: fixed;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    display: none;
+}
+.studentsList.active{
+    display: block;
+}
