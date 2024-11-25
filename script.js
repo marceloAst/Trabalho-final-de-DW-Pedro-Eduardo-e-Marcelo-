@@ -1,12 +1,13 @@
 let isCtrl = false
 let isH = false
 let studentsList = document.getElementById('studentsList')
+let closeStudentsList = document.getElementById('closeStudentsList')
 window.addEventListener('keydown',(event)=>{
     switch (event.keyCode){
         case 17:
             isCtrl=true
             break
-        case 72:
+        case 66:
             isH=true
             break
     }
@@ -19,7 +20,7 @@ window.addEventListener('keyup',(event)=>{
         case 17:
             isCtrl=false
             break
-        case 72:
+        case 66:
             isH=false
             break
     }
@@ -40,3 +41,4 @@ function hideStudentsList(){
 function showStudentsList(){
     studentsList.classList.add('active')
 }
+closeStudentsList.onclick = hideStudentsList
