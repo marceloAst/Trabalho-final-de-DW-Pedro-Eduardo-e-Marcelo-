@@ -1,2 +1,3 @@
-function sexo(){
+function kkkk(){
+    console.log('hello world')
 }
