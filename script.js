@@ -94,5 +94,8 @@ function edita(el){
         x.disabled = true
     }
 }
-function exclui(){}
-
+function exclui(elem){
+    elem.remove()
+    barrinha()
+}
+barrinha()
