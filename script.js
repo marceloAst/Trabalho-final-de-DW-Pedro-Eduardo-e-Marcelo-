@@ -7,7 +7,7 @@ window.addEventListener('keydown',(event)=>{
         case 17:
             isCtrl=true
             break
-        case 66:
+        case 72:
             isH=true
             break
     }
@@ -20,7 +20,7 @@ window.addEventListener('keyup',(event)=>{
         case 17:
             isCtrl=false
             break
-        case 66:
+        case 72:
             isH=false
             break
     }
