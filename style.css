@@ -36,10 +36,16 @@ body{
         margin-left: 5em;
         list-style: none;
         span{
-            margin-right: 15px;
+            margin-right: 0px;
         }
     }
 }
 .studentsList.active{
     display: flex;
+}
+.active{
+    display: block !important;
+}
+.ads>div{
+    display: none;
 }

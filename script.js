@@ -50,7 +50,15 @@ let principal = document.querySelector(".principal")
 let secundaria = document.querySelector(".secundaria")
 let buttonclick = document.getElementById("click")
 let input = document.getElementById("input")
+
+input.addEventListener("keypress",(event)=>{
+    if(event.keyCode===13){
+        adicionarNovaTarefa()
+    }
+})
+
 function adicionarNovaTarefa() {
+    mostrarad()
     const tarefa = input.value;
     if (tarefa) {
 
@@ -60,16 +68,21 @@ function adicionarNovaTarefa() {
   }
 function mostrarTarefas(tarefa){
     principal.insertAdjacentHTML(
-        "beforeend",
+        "afterbegin",
         `
         <div class="obj">
                 <input type="checkbox" class="checkbox" onclick="barrinha()">
-                <input type="text" class="en" value=${tarefa} disabled>
+                <p class="en" contenteditable="false">${tarefa}</p>
                 <button onclick="edita(this.parentElement)"">editar</button>
                 <button onclick="exclui(this.parentElement)"">excluir</button>
             </div>
         `
     )
+    principal.querySelector(".en").addEventListener("keypress",(event)=>{
+        if(event.keyCode===13){
+            edita(event.target.parentElement)
+        }
+    })
     barrinha()
     }
 function clicado(){
@@ -87,15 +100,38 @@ function barrinha(){
 }
 function edita(el){
     let x = el.querySelector(".en")
-    if (x.disabled){
-        x.disabled = false
+    if (x.contentEditable=='false'){
+        x.contentEditable = true
+        const range = document.createRange()
+	    const selection = window.getSelection()
+        range.selectNodeContents(x)
+        range.collapse(false)
+        selection.removeAllRanges()
+        selection.addRange(range)
+        x.focus()
     }
     else{
-        x.disabled = true
+        x.contentEditable = false
     }
 }
 function exclui(elem){
     elem.remove()
     barrinha()
+}
+function mostrarad(){
+    let div = document.querySelector(".ads")
+    for (const iterator of div.children) {
+        if(iterator.classList.contains("active")){
+            return
+        }
+    }
+    let anuncio = document.querySelector("#ad"+(Math.floor(Math.random()*div.children.length)+1))
+    anuncio.classList.add("active")
+}
+function fecha(){
+    let div = document.querySelector(".ads")
+    for (const iterator of div.children) {
+        iterator.classList.remove("active")
+    }
 }
 barrinha()
