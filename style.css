@@ -1,51 +1,289 @@
-*{
+/* Reset */
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-body{
+
+body {
     height: 100vh;
     width: 100vw;
     overflow-x: hidden;
-}
-.studentsList{
-    box-shadow: 0 0 10px 0 #0000008a;
-    border-radius: 20px;
-    position: fixed;
-    width: 80%;
-    height: 80%;
-    top: 10%;
-    left: 10%;
-    display: none;
-    font-size: 1.5rem;
-    flex-direction: column;
-    padding: 20px;
-    padding-left: 100px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    #closeStudentsList{
-        align-self: flex-end;
-        cursor: pointer;
-        font-size: 2.5rem;
-    }
-    h1{
-        text-align: center;
-        margin-bottom: 1em;
-    }
-    ul{
-        margin: 1em;
-        margin-left: 5em;
-        list-style: none;
-        span{
-            margin-right: 0px;
-        }
-    }
+    background-color: #ffffff;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.studentsList.active{
+
+.secundaria{
+    color: #ffcc00;
+}
+
+/* Estrutura principal */
+.temtudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Input e botão */
+input#input {
+    width: calc(100% - 100px);
+    padding: 10px;
+    border: 2px solid #000000;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-right: 10px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input#input:focus {
+    border-color: #ffcc00;
+}
+
+button#click {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ffcc00;
+    border: 2px solid #000000;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button#click:hover {
+    background-color: #ffe066;
+    transform: scale(1.05);
+}
+
+/* Lista de tarefas */
+.principal,
+.secundaria {
+    width: 100%;
+}
+
+.principal {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.secundaria {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    color: #000000;
+}
+
+/* Tarefa */
+.obj {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.obj:hover {
+    transform: translateY(-2px);
+}
+
+.obj p {
+    flex-grow: 1;
+    margin: 0;
+    padding: 0 10px;
+    font-size: 16px;
+    color: #000000;
+}
+
+.obj input[type="checkbox"] {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.obj button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #ffcc00;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.obj button:hover {
+    background-color: #ffe066;
+    transform: scale(1.05);
+}
+
+/* Lista de estudantes */
+.studentsList {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: #f8f8f8;
+    border: 2px solid #000000;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000;
+    flex-direction: column;
+}
+
+.studentsList.active {
     display: flex;
 }
-.active{
-    display: block !important;
+
+.studentsList h1 {
+    text-align: center;
+    margin-bottom: 1em;
+    font-size: 24px;
+    color: #000000;
 }
-.ads>div{
+
+.studentsList ul {
+    list-style: none;
+    padding: 0;
+    margin: 1em 5em;
+}
+
+.studentsList li {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.studentsList a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.studentsList a:hover {
+    text-decoration: underline;
+}
+
+.studentsList .ti-x {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 2.5rem;
+    color: #000000;
+}
+
+/* Anúncios */
+.ads div {
     display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border: 2px solid #000000;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+.ads div.active {
+    display: block;
+}
+
+.ads div i {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+.ads div a {
+    color: #ffcc00;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.ads div a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos */
+body {
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Modo Claro */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --button-bg: #ffcc00;
+    --button-text: #000000;
+    --button-hover: #ffe066;
+}
+
+/* Modo Escuro */
+body.dark-mode {
+    --bg-color: #1e1e1e;
+    --text-color: #ffffff;
+    --button-bg: #444444;
+    --button-text: #ffffff;
+    --button-hover: #555555;
+}
+
+/* Aplicação de Variáveis */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Botão */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+button#toggleDarkMode {
+    padding: 10px 20px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 2px solid var(--text-color);
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button#toggleDarkMode:hover {
+    background-color: var(--button-hover);
+    transform: scale(1.1);
+}
+

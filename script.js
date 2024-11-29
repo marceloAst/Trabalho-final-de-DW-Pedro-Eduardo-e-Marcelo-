@@ -66,6 +66,7 @@ function adicionarNovaTarefa() {
       mostrarTarefas(tarefa);
     }
   }
+  
 function mostrarTarefas(tarefa){
     principal.insertAdjacentHTML(
         "afterbegin",
@@ -135,3 +136,14 @@ function fecha(){
     }
 }
 barrinha()
+
+const toggleDarkModeButton = document.getElementById('toggleDarkMode');
+
+// Alternar Modo Escuro/Claro
+toggleDarkModeButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    // Alterar o texto do botão
+    toggleDarkModeButton.textContent = document.body.classList.contains('dark-mode')
+        ? '🌙 Dark Mode'
+        : '☀️ Light Mode';
+});
