@@ -135,15 +135,19 @@ function fecha(){
         iterator.classList.remove("active")
     }
 }
-barrinha()
+
 
 const toggleDarkModeButton = document.getElementById('toggleDarkMode');
 
 // Alternar Modo Escuro/Claro
+
 toggleDarkModeButton.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
     // Alterar o texto do botão
+
     toggleDarkModeButton.textContent = document.body.classList.contains('dark-mode')
         ? '🌙 Dark Mode'
         : '☀️ Light Mode';
 });
+
+
