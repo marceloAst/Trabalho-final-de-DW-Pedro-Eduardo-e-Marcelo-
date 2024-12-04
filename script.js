@@ -136,6 +136,17 @@ function fecha(){
     }
 }
 
+function barrinha() {
+    const totalTarefas = principal.querySelectorAll(".obj").length;
+    const tarefasConcluidas = clicado();
+    const progressPercentage = totalTarefas === 0 ? 0 : (tarefasConcluidas / totalTarefas) * 100;
+
+    secundaria.innerHTML = `${tarefasConcluidas} / ${totalTarefas}`;
+    const progressBar = document.querySelector('.progress-bar');
+    if (progressBar) {
+        progressBar.style.width = `${progressPercentage}%`;
+    }
+}
 
 const toggleDarkModeButton = document.getElementById('toggleDarkMode');
 
