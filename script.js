@@ -1,7 +1,32 @@
+let temtudo = document.querySelector(".temtudo")
+let principal = document.querySelector(".principal")
+let secundaria = document.querySelector(".secundaria")
+let buttonclick = document.getElementById("click")
+let input = document.getElementById("input")
 let isCtrl = false
 let isH = false
 let studentsList = document.getElementById('studentsList')
 let closeStudentsList = document.getElementById('closeStudentsList')
+if(!localStorage.getItem('tarefas')){
+    localStorage.setItem('tarefas',JSON.stringify({tarefas:[]}))
+}else{
+    console.log(localStorage.getItem('tarefas'))
+    for (const elem of JSON.parse(localStorage.getItem('tarefas')).tarefas) {
+        principal.insertAdjacentHTML(
+            "beforeend",
+            `
+            <div class="obj ${elem.concluido?'concluido':''}" ${elem.concluido?'style="order: 1"':''}>
+                    <input type="checkbox" class="checkbox" onclick="barrinha(this.parentElement)" ${elem.concluido?'checked':''}>
+                    <p class="en" onclick="barrinha(this.parentElement,true)" contenteditable="false">${elem.tarefa}</p>
+                    <button onclick="edita(this.parentElement)"">editar</button>
+                    <button onclick="exclui(this.parentElement)"">excluir</button>
+                </div>
+            `
+        )
+    }
+    barrinha()
+
+}
 window.addEventListener('keydown',(event)=>{
     switch (event.keyCode){
         case 17:
@@ -46,11 +71,7 @@ function showStudentsList(){
 }
 closeStudentsList.onclick = hideStudentsList
 // 
-let temtudo = document.querySelector(".temtudo")
-let principal = document.querySelector(".principal")
-let secundaria = document.querySelector(".secundaria")
-let buttonclick = document.getElementById("click")
-let input = document.getElementById("input")
+
 
 input.addEventListener("keypress",(event)=>{
     if(event.keyCode===13){
@@ -61,10 +82,15 @@ function adicionarNovaTarefa() {
     mostrarad()
     const tarefa = input.value;
     if (tarefa) {
-
+        console.log(localStorage.getItem('tarefas'))
+        let newArray = JSON.parse(localStorage.getItem('tarefas')).tarefas
+        newArray.unshift({tarefa: tarefa, concluido: false})
+        localStorage.setItem('tarefas',JSON.stringify({tarefas: newArray}))
       input.value = ''; 
       mostrarTarefas(tarefa);
     }
+    
+
   }
   
 function mostrarTarefas(tarefa){
@@ -73,7 +99,7 @@ function mostrarTarefas(tarefa){
         `
         <div class="obj">
                 <input type="checkbox" class="checkbox" onclick="barrinha(this.parentElement)">
-                <p class="en" contenteditable="false">${tarefa}</p>
+                <p class="en" onclick="barrinha(this.parentElement,true)" contenteditable="false">${tarefa}</p>
                 <button onclick="edita(this.parentElement)"">editar</button>
                 <button onclick="exclui(this.parentElement)"">excluir</button>
             </div>
@@ -96,9 +122,7 @@ function clicado(){
     }
     return contador
 }
-function barrinha(){
-    secundaria.innerHTML = (`${clicado()}/ ${principal.querySelectorAll(".obj").length} `)
-}
+
 function edita(el){
     let x = el.querySelector(".en")
     if (x.contentEditable=='false'){
@@ -110,12 +134,45 @@ function edita(el){
         selection.removeAllRanges()
         selection.addRange(range)
         x.focus()
+        window.addEventListener('mousedown',()=>{
+            if(event.srcElement.parentElement!=el){
+                x.contentEditable = false
+                let newArray = JSON.parse(localStorage.getItem('tarefas')).tarefas.map((element,i)=>{
+                    if(i===Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),el)){
+                        console.log(Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),el), i)
+                        element.tarefa=x.innerHTML
+                    }
+                    return element
+                })
+                localStorage.setItem('tarefas',JSON.stringify({tarefas:newArray}))
+            }
+        })
     }
     else{
         x.contentEditable = false
+        let newArray = JSON.parse(localStorage.getItem('tarefas')).tarefas.map((element,i)=>{
+            if(i===Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),el)){
+                console.log(Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),el), i)
+                element.tarefa=x.innerHTML
+            }
+            return element
+        })
+        localStorage.setItem('tarefas',JSON.stringify({tarefas:newArray}))
+
     }
 }
 function exclui(elem){
+    console.log(Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),elem))
+    let newArray = JSON.parse(localStorage.getItem('tarefas')).tarefas.filter((el,i)=>{
+        if(i===Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),elem)){
+            console.log(i+', '+Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),elem))
+            console.log()
+            console.log(el)
+            return
+        }
+        return el
+    })
+    localStorage.setItem('tarefas',JSON.stringify({tarefas:newArray}))
     elem.remove()
     barrinha()
 }
@@ -136,10 +193,23 @@ function fecha(){
     }
 }
 
-function barrinha(element=false) {
-    if(element){
-        element.style.order=element.querySelector('input').checked?1:0
+function barrinha(element=false,switchs=false) {
+    if(switchs){
+        if(element.querySelector('.en').contentEditable=='false'){
+            element.querySelector('input').checked=!element.querySelector('input').checked
 
+        }
+    }
+    if(element){
+        let newArray = JSON.parse(localStorage.getItem('tarefas')).tarefas.map((el,i)=>{
+            if(i===Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),element)){
+                console.log(Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),element), i)
+                el.concluido=element.querySelector('input').checked
+            }
+            return el
+        })
+        localStorage.setItem('tarefas',JSON.stringify({tarefas:newArray}))
+        element.style.order=element.querySelector('input').checked?1:0
         if(element.querySelector('input').checked){
             element.classList.add('concluido')
         }else{
@@ -158,6 +228,7 @@ function barrinha(element=false) {
     }
 }
 
+
 const toggleDarkModeButton = document.getElementById('toggleDarkMode');
 
 // Alternar Modo Escuro/Claro
@@ -172,3 +243,4 @@ toggleDarkModeButton.addEventListener('click', () => {
 });
 
 
+barrinha()

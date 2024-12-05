@@ -125,8 +125,11 @@ button#click:hover {
     color: #000000;
     max-width: 80%;
     overflow-wrap: break-word;
+    cursor: pointer;
 }
-
+.obj p[contentEditable='true']{
+    cursor: unset;
+}
 .obj input[type="checkbox"] {
     margin-right: 10px;
     cursor: pointer;
