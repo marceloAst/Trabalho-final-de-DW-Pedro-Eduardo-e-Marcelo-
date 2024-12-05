@@ -81,9 +81,16 @@ button#click:hover {
 
 .principal {
     margin-top: 20px;
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-height: 70vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.principal::-webkit-scrollbar{
+    width: 0;
 }
 
 .secundaria {
@@ -116,6 +123,8 @@ button#click:hover {
     padding: 0 10px;
     font-size: 16px;
     color: #000000;
+    max-width: 80%;
+    overflow-wrap: break-word;
 }
 
 .obj input[type="checkbox"] {
@@ -136,6 +145,7 @@ button#click:hover {
 .obj button:hover {
     background-color: #ffe066;
     transform: scale(1.05);
+    
 }
 
 /* Lista de estudantes */
@@ -300,4 +310,9 @@ button#toggleDarkMode:hover {
     height: 100%;
     background-color: #ffcc00;
     transition: width 0.3s ease;
+}
+@media (max-width: 768px){
+    .obj p{
+        max-width: 55%;
+    }
 }

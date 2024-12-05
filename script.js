@@ -8,7 +8,9 @@ window.addEventListener('keydown',(event)=>{
             isCtrl=true
             break
         case 72:
-            event.preventDefault()
+            if(isCtrl){
+                event.preventDefault()
+            }
             isH=true
             break
     }
@@ -22,7 +24,6 @@ window.addEventListener('keyup',(event)=>{
             isCtrl=false
             break
         case 72:
-            event.preventDefault()
             isH=false
             break
     }
@@ -56,7 +57,6 @@ input.addEventListener("keypress",(event)=>{
         adicionarNovaTarefa()
     }
 })
-
 function adicionarNovaTarefa() {
     mostrarad()
     const tarefa = input.value;
@@ -72,7 +72,7 @@ function mostrarTarefas(tarefa){
         "afterbegin",
         `
         <div class="obj">
-                <input type="checkbox" class="checkbox" onclick="barrinha()">
+                <input type="checkbox" class="checkbox" onclick="barrinha(this.parentElement)">
                 <p class="en" contenteditable="false">${tarefa}</p>
                 <button onclick="edita(this.parentElement)"">editar</button>
                 <button onclick="exclui(this.parentElement)"">excluir</button>
@@ -136,7 +136,17 @@ function fecha(){
     }
 }
 
-function barrinha() {
+function barrinha(element=false) {
+    if(element){
+        element.style.order=element.querySelector('input').checked?1:0
+
+        if(element.querySelector('input').checked){
+            element.classList.add('concluido')
+        }else{
+            element.classList.remove('concluido')
+        }
+    
+    }
     const totalTarefas = principal.querySelectorAll(".obj").length;
     const tarefasConcluidas = clicado();
     const progressPercentage = totalTarefas === 0 ? 0 : (tarefasConcluidas / totalTarefas) * 100;
@@ -157,8 +167,8 @@ toggleDarkModeButton.addEventListener('click', () => {
     // Alterar o texto do botão
 
     toggleDarkModeButton.textContent = document.body.classList.contains('dark-mode')
-        ? '🌙 Dark Mode'
-        : '☀️ Light Mode';
+        ? '🌙'
+        : '☀️';
 });
 
 
