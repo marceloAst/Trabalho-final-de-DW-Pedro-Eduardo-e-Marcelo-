@@ -7,10 +7,12 @@ let isCtrl = false
 let isH = false
 let studentsList = document.getElementById('studentsList')
 let closeStudentsList = document.getElementById('closeStudentsList')
+
+//verifica se a tarefas já foi declarada no localstorage, se não foi basicamente inica como []
 if(!localStorage.getItem('tarefas')){
     localStorage.setItem('tarefas',JSON.stringify({tarefas:[]}))
 }else{
-    console.log(localStorage.getItem('tarefas'))
+    //se já foi, percorre a lista de tarefas adicionando uma dive pra cada tarefa
     for (const elem of JSON.parse(localStorage.getItem('tarefas')).tarefas) {
         principal.insertAdjacentHTML(
             "beforeend",
@@ -24,9 +26,10 @@ if(!localStorage.getItem('tarefas')){
             `
         )
     }
-    barrinha()
 
+    barrinha()
 }
+//verifica quando se pressiona as teclas 'ctrl' keyCode = 17 e 'H' keyCode = 72
 window.addEventListener('keydown',(event)=>{
     switch (event.keyCode){
         case 17:
@@ -39,10 +42,12 @@ window.addEventListener('keydown',(event)=>{
             isH=true
             break
     }
+    //se ctrl e H forem pressionados altera a visibilidade da lista de estudantes(modal)
     if(isCtrl&&isH){
         switchStudentsList()
     }
 })
+//verifica quando se solta as teclas 'ctrl' keyCode = 17 e 'H' keyCode = 72
 window.addEventListener('keyup',(event)=>{
     switch (event.keyCode){
         case 17:
@@ -52,10 +57,9 @@ window.addEventListener('keyup',(event)=>{
             isH=false
             break
     }
-    if(isCtrl&&isH){
-        switchStudentsList()
-    }
+
 })
+//altera a visibilidade do modal, removendo ou adicionando a classe active
 function switchStudentsList(){
     if(studentsList.classList.contains('active')){
         hideStudentsList()
@@ -69,8 +73,10 @@ function hideStudentsList(){
 function showStudentsList(){
     studentsList.classList.add('active')
 }
+
+//adiciona o evento ao x do modal
 closeStudentsList.onclick = hideStudentsList
-// 
+
 
 
 input.addEventListener("keypress",(event)=>{
@@ -82,9 +88,11 @@ function adicionarNovaTarefa() {
     mostrarad()
     const tarefa = input.value;
     if (tarefa) {
-        console.log(localStorage.getItem('tarefas'))
+        //clona o array tarefas do localStorage
         let newArray = JSON.parse(localStorage.getItem('tarefas')).tarefas
+        //adiciona a tarefa no começo do novo array
         newArray.unshift({tarefa: tarefa, concluido: false})
+        //atualiza o localStorage
         localStorage.setItem('tarefas',JSON.stringify({tarefas: newArray}))
       input.value = ''; 
       mostrarTarefas(tarefa);
@@ -122,7 +130,19 @@ function clicado(){
     }
     return contador
 }
+function editaLocalStorage(el,x){
+    //clona o array tarefas do localStorage, onde se edita o valor em tarefas usando a posição do el na div.principal
+    let newArray = JSON.parse(localStorage.getItem('tarefas')).tarefas.map((element,i)=>{
+        if(i===Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),el)){
+            console.log(Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),el), i)
+            element.tarefa=x.innerHTML
+        }
+        return element
+    })
 
+    //atualiza o localStorage
+    localStorage.setItem('tarefas',JSON.stringify({tarefas:newArray}))
+}
 function edita(el){
     let x = el.querySelector(".en")
     if (x.contentEditable=='false'){
@@ -134,44 +154,30 @@ function edita(el){
         selection.removeAllRanges()
         selection.addRange(range)
         x.focus()
+  
+        //verifica se o mouse clicou fora do p, se sim desativa a edição e salva no localStorage
         window.addEventListener('mousedown',()=>{
-            if(event.srcElement.parentElement!=el){
+            if(event.srcElement.parentElement!=el||(!event.srcElement.classList.contains('en')&&!(event.srcElement.tagName=='BUTTON'))){
                 x.contentEditable = false
-                let newArray = JSON.parse(localStorage.getItem('tarefas')).tarefas.map((element,i)=>{
-                    if(i===Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),el)){
-                        console.log(Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),el), i)
-                        element.tarefa=x.innerHTML
-                    }
-                    return element
-                })
-                localStorage.setItem('tarefas',JSON.stringify({tarefas:newArray}))
+                editaLocalStorage(el,x)
             }
         })
     }
     else{
+        //se clicou em editar e já estava editando tira a edição e salva no localStorage
         x.contentEditable = false
-        let newArray = JSON.parse(localStorage.getItem('tarefas')).tarefas.map((element,i)=>{
-            if(i===Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),el)){
-                console.log(Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),el), i)
-                element.tarefa=x.innerHTML
-            }
-            return element
-        })
-        localStorage.setItem('tarefas',JSON.stringify({tarefas:newArray}))
-
+        editaLocalStorage(el,x)
     }
 }
 function exclui(elem){
-    console.log(Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),elem))
+    //clona o array tarefas do localStorage, filtrando o elemneto na posição do elem na div.principal
     let newArray = JSON.parse(localStorage.getItem('tarefas')).tarefas.filter((el,i)=>{
         if(i===Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),elem)){
-            console.log(i+', '+Array.prototype.indexOf.call(principal.querySelectorAll('.obj'),elem))
-            console.log()
-            console.log(el)
             return
         }
         return el
     })
+    //atualiza o localStorage
     localStorage.setItem('tarefas',JSON.stringify({tarefas:newArray}))
     elem.remove()
     barrinha()
