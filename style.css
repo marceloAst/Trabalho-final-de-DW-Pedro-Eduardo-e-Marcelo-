@@ -141,6 +141,17 @@ button:hover {
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.obj p.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+    color: var(--text-color);
+}
+
+.obj input[type="checkbox"]:checked + p {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
 .obj:hover {
     transform: translateY(-2px);
 }
@@ -237,7 +248,6 @@ button:hover {
 }
 
 
-/* Anúncios */
 /* Anúncios */
 .ads div {
     display: none;

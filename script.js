@@ -234,6 +234,18 @@ function barrinha(element=false,switchs=false) {
     }
 }
 
+/* opacidade e risco */
+document.querySelectorAll('.obj input[type="checkbox"]').forEach((checkbox) => {
+    checkbox.addEventListener('change', (event) => {
+        const taskText = event.target.nextElementSibling;
+        if (event.target.checked) {
+            taskText.classList.add('completed');
+        } else {
+            taskText.classList.remove('completed');
+        }
+    });
+});
+
 
 const toggleDarkModeButton = document.getElementById('toggleDarkMode');
 
