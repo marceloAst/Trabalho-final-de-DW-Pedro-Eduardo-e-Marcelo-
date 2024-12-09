@@ -19,6 +19,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .secundaria{
@@ -49,6 +52,11 @@ body {
     border: 2px solid #000000;
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Input e botão */
@@ -61,6 +69,7 @@ input#input {
     margin-right: 10px;
     outline: none;
     transition: border-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input#input:focus {
@@ -78,7 +87,7 @@ button {
     border: none;
     border-radius: 8px;
     background-image: linear-gradient(45deg, var(--button-bg), var(--highlight-color));
-    color: var(--button-text);
+
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -89,7 +98,6 @@ button:hover {
 
 
 /* Lista de tarefas */
-.principal,
 .secundaria {
     width: 100%;
 }
@@ -126,6 +134,11 @@ button:hover {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .obj:hover {
@@ -141,6 +154,7 @@ button:hover {
     max-width: 80%;
     overflow-wrap: break-word;
     cursor: pointer;
+     color: var(--text-color);
 }
 .obj p[contentEditable='true']{
     cursor: unset;
@@ -158,6 +172,7 @@ button:hover {
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .obj button:hover {
@@ -173,48 +188,43 @@ button:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
+    width: 90%;
     max-width: 600px;
-    background-color: #f8f8f8;
-    border: 2px solid #000000;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
     border-radius: 20px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    box-shadow: 0 8px 16px var(--shadow-color);
+    padding: 50px;
     z-index: 1000;
     flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .studentsList.active {
     display: flex;
 }
 
+
+.studentsList h1, .studentsList a {
+    color: var(--text-color); 
+}
+
 .studentsList h1 {
     text-align: center;
     margin-bottom: 1em;
     font-size: 24px;
-    color: #000000;
-}
-
-.studentsList ul {
-    list-style: none;
-    padding: 0;
-    margin: 1em 5em;
-}
-
-.studentsList li {
-    margin: 10px 0;
-    font-size: 16px;
 }
 
 .studentsList a {
-    color: #ffcc00;
+    color: var(--button-bg);
     text-decoration: none;
-    font-size: 18px;
-    margin-left: 10px;
+    font-size: 20px;
 }
 
 .studentsList a:hover {
     text-decoration: underline;
+    opacity: 0.8;
 }
 
 .studentsList .ti-x {
@@ -223,8 +233,9 @@ button:hover {
     right: 10px;
     cursor: pointer;
     font-size: 2.5rem;
-    color: #000000;
+    color: var(--text-color);
 }
+
 
 /* Anúncios */
 .ads div {
@@ -232,7 +243,6 @@ button:hover {
     position: fixed;
     bottom: 20px;
     transform: translateX(-50%);
-    margin-left: 0%;
     width: 600px;
     padding: 70px;
     background-color: #f8f8f8;
@@ -240,6 +250,13 @@ button:hover {
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    border: 3px solid #555555;
+    background: linear-gradient(120deg, #f8f8f8, #e9ecef);
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .ads div.active {
@@ -251,6 +268,14 @@ button:hover {
     top: 5px;
     right: 5px;
     cursor: pointer;
+    font-size: 1.5rem;
+    color: #000000;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.ads div i:hover {
+    color: #ff0800;
+    transform: rotate(90deg);
 }
 
 .ads div a {
@@ -262,6 +287,7 @@ button:hover {
 
 .ads div a:hover {
     text-decoration: underline;
+    opacity: 0.7;
 }
 
 /* Estilos */
@@ -280,6 +306,8 @@ body {
 
 body {
     background: linear-gradient(120deg, #ffe066, #f1f5f9);
+    background: linear-gradient(120deg,  #ffe066, var(--bg-color));
+    transition: 0.3s ease;
 }
 
 
@@ -290,17 +318,20 @@ body {
     --button-bg: #ffcc00;
     --button-text: #000000;
     --button-hover: #ffe066;
+    --border-color: #000000;
+    --shadow-color: rgba(0, 0, 0, 0.15);
 }
 
 /* Modo Escuro */
 body.dark-mode {
-    --bg-color: #1e1e1e;
-    --text-color: #ffffff;
-    --button-bg: #444444;
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --button-bg: #ffa726;
     --button-text: #ffffff;
-    --button-hover: #555555;
+    --button-hover: #ffcc80;
+    --border-color: #333333;
+    --shadow-color: rgba(0, 0, 0, 0.3);
 }
-
 /* Aplicação de Variáveis */
 body {
     background-color: var(--bg-color);
@@ -343,6 +374,7 @@ button#toggleDarkMode:hover {
     height: 100%;
     background-color: #ffcc00;
     transition: width 0.3s ease;
+    background-color: var(--button-bg)
 }
 @media (max-width: 768px){
     .obj p{
