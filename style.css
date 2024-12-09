@@ -232,6 +232,7 @@ button:hover {
     position: fixed;
     bottom: 20px;
     transform: translateX(-50%);
+    margin-left: 0%;
     width: 600px;
     padding: 70px;
     background-color: #f8f8f8;
@@ -253,7 +254,8 @@ button:hover {
 }
 
 .ads div a {
-    color: #ffcc00;
+    font-size: 40px;
+    color: #ff0800;
     font-weight: bold;
     text-decoration: none;
 }
