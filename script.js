@@ -100,7 +100,7 @@ function adicionarNovaTarefa() {
     
 
   }
-  
+// a parte interna da div, já declarada como um html
 function mostrarTarefas(tarefa){
     principal.insertAdjacentHTML(
         "afterbegin",
@@ -113,13 +113,16 @@ function mostrarTarefas(tarefa){
             </div>
         `
     )
+    // pra funcionar o enter
     principal.querySelector(".en").addEventListener("keypress",(event)=>{
         if(event.keyCode===13){
             edita(event.target.parentElement)
         }
     })
+    // pra atualizar o progresso toda vez que atualizar o html
     barrinha()
     }
+// verifica se um elemento foi clicado
 function clicado(){
     let x = principal.querySelectorAll(".obj")
     let contador = 0
@@ -143,6 +146,7 @@ function editaLocalStorage(el,x){
     //atualiza o localStorage
     localStorage.setItem('tarefas',JSON.stringify({tarefas:newArray}))
 }
+// basicamente, é a funçao para editar
 function edita(el){
     let x = el.querySelector(".en")
     if (x.contentEditable=='false'){
@@ -169,6 +173,7 @@ function edita(el){
         editaLocalStorage(el,x)
     }
 }
+// funçao para excluir elementos
 function exclui(elem){
     //clona o array tarefas do localStorage, filtrando o elemneto na posição do elem na div.principal
     let newArray = JSON.parse(localStorage.getItem('tarefas')).tarefas.filter((el,i)=>{
@@ -182,6 +187,7 @@ function exclui(elem){
     elem.remove()
     barrinha()
 }
+// funçao para os ads
 function mostrarad(){
     let div = document.querySelector(".ads")
     for (const iterator of div.children) {
@@ -189,16 +195,19 @@ function mostrarad(){
             return
         }
     }
+    // basicamente, vai pegar 1 dos 3 ads de forma aleatória
     let anuncio = document.querySelector("#ad"+(Math.floor(Math.random()*div.children.length)+1))
     anuncio.classList.add("active")
 }
+// o x dos ads
 function fecha(){
     let div = document.querySelector(".ads")
+    // vai remover uma classe dos ads, fazendo assim a div sumir
     for (const iterator of div.children) {
         iterator.classList.remove("active")
     }
 }
-
+// a barra de progresso
 function barrinha(element=false,switchs=false) {
     if(switchs){
         if(element.querySelector('.en').contentEditable=='false'){
@@ -226,7 +235,7 @@ function barrinha(element=false,switchs=false) {
     const totalTarefas = principal.querySelectorAll(".obj").length;
     const tarefasConcluidas = clicado();
     const progressPercentage = totalTarefas === 0 ? 0 : (tarefasConcluidas / totalTarefas) * 100;
-
+    // vai mostrar o progresso
     secundaria.innerHTML = `${tarefasConcluidas} / ${totalTarefas}`;
     const progressBar = document.querySelector('.progress-bar');
     if (progressBar) {
@@ -260,5 +269,5 @@ toggleDarkModeButton.addEventListener('click', () => {
         : '☀️';
 });
 
-
+// pra barrinha sempre mostrar
 barrinha()
