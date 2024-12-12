@@ -7,7 +7,23 @@ let isCtrl = false
 let isH = false
 let studentsList = document.getElementById('studentsList')
 let closeStudentsList = document.getElementById('closeStudentsList')
+const toggleDarkModeButton = document.getElementById('toggleDarkMode');
 
+//verifica se a dark já foi declarada no localstorage, se não foi basicamente inica como false
+if(!localStorage.getItem('dark')){
+    localStorage.setItem('dark','false')
+}else{
+    //muda o dark-mode de acordo com o localstorage
+    if(localStorage.getItem('dark')==='true'){
+        document.body.classList.toggle('dark-mode');
+    
+        // Alterar o texto do botão
+        toggleDarkModeButton.textContent = document.body.classList.contains('dark-mode')
+            ? '🌙'
+            : '☀️';
+    }
+    
+}
 //verifica se a tarefas já foi declarada no localstorage, se não foi basicamente inica como []
 if(!localStorage.getItem('tarefas')){
     localStorage.setItem('tarefas',JSON.stringify({tarefas:[]}))
@@ -27,6 +43,12 @@ if(!localStorage.getItem('tarefas')){
                 </div>
             `
         )
+        // pra funcionar o enter
+        principal.querySelectorAll(".en")[principal.querySelectorAll(".en").length-1].addEventListener("keypress",(event)=>{
+            if(event.keyCode===13){
+                edita(event.target.parentElement)
+            }
+        })
     }
 
     barrinha()
@@ -165,7 +187,7 @@ function edita(el){
   
         //verifica se o mouse clicou fora do p, se sim desativa a edição e salva no localStorage
         window.addEventListener('mousedown',()=>{
-            if(event.srcElement.parentElement!=el||(!event.srcElement.classList.contains('en')&&!(event.srcElement.tagName=='I'))){
+            if((event.srcElement.parentElement!=el&&!event.srcElement.parentElement.classList.contains('editaExclui'))||(!event.srcElement.classList.contains('en')&&!(event.srcElement.classList.contains('ti-pencil')))){
                 x.contentEditable = false
                 editaLocalStorage(el,x)
             }
@@ -213,10 +235,10 @@ function fecha(){
 }
 // a barra de progresso
 function barrinha(element=false,switchs=false) {
+    //se não tiver editando, quando clica no p muda o checkbox, se tiver marcado desmarca, se não marca
     if(switchs){
         if(element.querySelector('.en').contentEditable=='false'){
             element.querySelector('input').checked=!element.querySelector('input').checked
-
         }
     }
     if(element){
@@ -260,14 +282,15 @@ document.querySelectorAll('.obj input[type="checkbox"]').forEach((checkbox) => {
 });
 
 
-const toggleDarkModeButton = document.getElementById('toggleDarkMode');
+
 
 // Alternar Modo Escuro/Claro
 
 toggleDarkModeButton.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
+    //armazena o estado no localstorage
+    localStorage.setItem('dark',document.body.classList.contains('dark-mode'))
     // Alterar o texto do botão
-
     toggleDarkModeButton.textContent = document.body.classList.contains('dark-mode')
         ? '🌙'
         : '☀️';
