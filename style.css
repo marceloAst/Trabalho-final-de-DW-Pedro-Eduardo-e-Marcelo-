@@ -81,6 +81,12 @@ button#click:hover {
     transform: scale(1.05);
 }
 
+.linha{
+    display: flex;
+    align-items: end;
+    gap: 15px;
+}
+
 button {
     padding: 10px 20px;
     font-size: 16px;
@@ -88,6 +94,7 @@ button {
     border-radius: 8px;
     background-image: linear-gradient(45deg, var(--progress-bg), var(--highlight-color));
 
+    background-image: linear-gradient(45deg, var(--button-bg), var(--highlight-color));
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
