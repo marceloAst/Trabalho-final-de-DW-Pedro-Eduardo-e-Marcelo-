@@ -301,6 +301,16 @@ button:hover {
         opacity: 1;
     }
 }
+@keyframes pulsar{
+    0%{
+        transform: scale(1);
+        filter: brightness(.875);
+    }
+    100%{
+        transform: scale(1.2);
+        filter: brightness(1);
+    }
+}
 
 .ads div i {
     position: absolute;
@@ -428,13 +438,8 @@ button#toggleDarkMode:hover {
     .principal{
         max-height: 40vh;
     }
+    h1{
+        font-size: 3rem;
+    }
 }
 
-@keyframes pulsar{
-    0%{
-        transform: scale(1);
-    }
-    100%{
-        transform: scale(1.2);
-    }
-}
