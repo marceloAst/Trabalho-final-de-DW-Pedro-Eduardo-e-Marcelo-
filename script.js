@@ -35,7 +35,7 @@ if(!localStorage.getItem('tarefas')){
             `
             <div class="obj ${elem.concluido?'concluido':''}" ${elem.concluido?'style="order: 1"':''}>
                     <input type="checkbox" class="checkbox" onclick="barrinha(this.parentElement)" ${elem.concluido?'checked':''}>
-                    <p class="en" onclick="barrinha(this.parentElement,true)" contenteditable="false">${elem.tarefa}</p>
+                    <p class="en" onclick="barrinha(this.parentElement,true)" contenteditable="false"></p>
                     <div class="editaExclui">
                         <i onclick="edita(this.parentElement.parentElement)" class="ti ti-pencil"></i>
                         <i onclick="exclui(this.parentElement.parentElement)" class="ti ti-trash"></i>
@@ -43,6 +43,7 @@ if(!localStorage.getItem('tarefas')){
                 </div>
             `
         )
+        principal.querySelectorAll(".en")[principal.querySelectorAll(".en").length-1].textContent=elem.tarefa
         // pra funcionar o enter
         principal.querySelectorAll(".en")[principal.querySelectorAll(".en").length-1].addEventListener("keypress",(event)=>{
             if(event.keyCode===13){
@@ -131,7 +132,7 @@ function mostrarTarefas(tarefa){
         `
         <div class="obj">
                 <input type="checkbox" class="checkbox" onclick="barrinha(this.parentElement)">
-                <p class="en" onclick="barrinha(this.parentElement,true)" contenteditable="false">${tarefa}</p>
+                <p class="en" onclick="barrinha(this.parentElement,true)" contenteditable="false"></p>
                 <div class="editaExclui">
                     <i onclick="edita(this.parentElement.parentElement)" class="ti ti-pencil"></i>
                     <i onclick="exclui(this.parentElement.parentElement)" class="ti ti-trash"></i>
@@ -139,6 +140,7 @@ function mostrarTarefas(tarefa){
             </div>
         `
     )
+    principal.querySelector(".en").textContent=tarefa
     // pra funcionar o enter
     principal.querySelector(".en").addEventListener("keypress",(event)=>{
         if(event.keyCode===13){
@@ -280,8 +282,6 @@ document.querySelectorAll('.obj input[type="checkbox"]').forEach((checkbox) => {
         }
     });
 });
-
-
 
 
 // Alternar Modo Escuro/Claro
