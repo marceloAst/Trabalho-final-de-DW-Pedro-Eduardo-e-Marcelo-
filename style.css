@@ -148,8 +148,10 @@ button:hover {
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.obj p.completed {
-    text-decoration: line-through;
+.obj.concluido {
+    p{
+        text-decoration: line-through;
+    }
     opacity: 0.5;
     color: var(--text-color);
 }
@@ -162,7 +164,15 @@ button:hover {
 .obj:hover {
     transform: translateY(-2px);
 }
-
+.obj .editaExclui{
+    font-size: 1.5em;
+    i{
+        cursor: pointer;
+    }
+    i:last-child{
+        color: red;
+    }
+}
 .obj p {
     flex-grow: 1;
     margin: 0;

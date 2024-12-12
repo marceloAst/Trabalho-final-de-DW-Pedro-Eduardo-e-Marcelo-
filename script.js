@@ -20,8 +20,10 @@ if(!localStorage.getItem('tarefas')){
             <div class="obj ${elem.concluido?'concluido':''}" ${elem.concluido?'style="order: 1"':''}>
                     <input type="checkbox" class="checkbox" onclick="barrinha(this.parentElement)" ${elem.concluido?'checked':''}>
                     <p class="en" onclick="barrinha(this.parentElement,true)" contenteditable="false">${elem.tarefa}</p>
-                    <button onclick="edita(this.parentElement)"">editar</button>
-                    <button onclick="exclui(this.parentElement)"">excluir</button>
+                    <div class="editaExclui">
+                        <i onclick="edita(this.parentElement.parentElement)" class="ti ti-pencil"></i>
+                        <i onclick="exclui(this.parentElement.parentElement)" class="ti ti-trash"></i>
+                    </div>
                 </div>
             `
         )
@@ -108,8 +110,10 @@ function mostrarTarefas(tarefa){
         <div class="obj">
                 <input type="checkbox" class="checkbox" onclick="barrinha(this.parentElement)">
                 <p class="en" onclick="barrinha(this.parentElement,true)" contenteditable="false">${tarefa}</p>
-                <button onclick="edita(this.parentElement)"">editar</button>
-                <button onclick="exclui(this.parentElement)"">excluir</button>
+                <div class="editaExclui">
+                    <i onclick="edita(this.parentElement.parentElement)" class="ti ti-pencil"></i>
+                    <i onclick="exclui(this.parentElement.parentElement)" class="ti ti-trash"></i>
+                </div>
             </div>
         `
     )
@@ -149,7 +153,7 @@ function editaLocalStorage(el,x){
 // basicamente, é a funçao para editar
 function edita(el){
     let x = el.querySelector(".en")
-    if (x.contentEditable=='false'){
+    if (x.contentEditable=='false'&&!el.classList.contains('concluido')){
         x.contentEditable = true
         const range = document.createRange()
 	    const selection = window.getSelection()
@@ -161,7 +165,7 @@ function edita(el){
   
         //verifica se o mouse clicou fora do p, se sim desativa a edição e salva no localStorage
         window.addEventListener('mousedown',()=>{
-            if(event.srcElement.parentElement!=el||(!event.srcElement.classList.contains('en')&&!(event.srcElement.tagName=='BUTTON'))){
+            if(event.srcElement.parentElement!=el||(!event.srcElement.classList.contains('en')&&!(event.srcElement.tagName=='I'))){
                 x.contentEditable = false
                 editaLocalStorage(el,x)
             }
