@@ -86,7 +86,7 @@ button {
     font-size: 16px;
     border: none;
     border-radius: 8px;
-    background-image: linear-gradient(45deg, var(--button-bg), var(--highlight-color));
+    background-image: linear-gradient(45deg, var(--progress-bg), var(--highlight-color));
 
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -228,7 +228,7 @@ button:hover {
 }
 
 .studentsList a {
-    color: var(--button-bg);
+    color: var(--progress-bg);
     text-decoration: none;
     font-size: 20px;
 }
@@ -327,8 +327,7 @@ body {
 }
 
 body {
-    background: linear-gradient(120deg, #ffe066, #f1f5f9);
-    background: linear-gradient(120deg,  #ffe066, var(--bg-color));
+    background: linear-gradient(0deg,  #ffe066, var(--bg-color) 50%);
     transition: 0.3s ease;
 }
 
@@ -338,6 +337,7 @@ body {
     --bg-color: #ffffff;
     --text-color: #000000;
     --button-bg: #ffcc00;
+    --progress-bg: #ffbb00;
     --button-text: #000000;
     --button-hover: #ffe066;
     --border-color: #000000;
@@ -348,11 +348,13 @@ body {
 body.dark-mode {
     --bg-color: #121212;
     --text-color: #e0e0e0;
-    --button-bg: #ffa726;
+    --button-bg: #000;
+    --progress-bg: #ffee00;
     --button-text: #ffffff;
-    --button-hover: #ffcc80;
+    --button-hover: #000;
     --border-color: #333333;
     --shadow-color: rgba(0, 0, 0, 0.3);
+    
 }
 /* Aplicação de Variáveis */
 body {
@@ -396,7 +398,7 @@ button#toggleDarkMode:hover {
     height: 100%;
     background-color: #ffcc00;
     transition: width 0.3s ease;
-    background-color: var(--button-bg)
+    background-color: var(--progress-bg)
 }
 @media (max-width: 768px){
     .obj p{
